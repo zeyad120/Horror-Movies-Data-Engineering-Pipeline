@@ -1,0 +1,60 @@
+version: '3'
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    environment:
+      - CLUSTER_NAME=horror_cluster
+    ports:
+      - "9870:9870"
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode
+    environment:
+      - SERVICE_PRECONDITION=namenode:9870
+    ports:
+      - "9864:9864"
+
+  postgres:
+    image: postgres:9.6
+    container_name: airflow_db
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U airflow" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  airflow:
+    image: puckel/docker-airflow:1.10.9
+    container_name: airflow_orchestrator
+    user: root
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - ./data:/usr/local/airflow/data
+      - ./spark:/usr/local/airflow/spark
+      - //var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - EXECUTOR=Local
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+      - POSTGRES_HOST=postgres
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    # استخدم السطرين دول بدل entrypoint القديم
+    command: /bin/bash -c "pip install docker==4.4.4 && /entrypoint.sh webserver"
+
+  spark:
+    image: apache/spark:3.4.1
+    container_name: spark_processor
+    volumes:
+      - ./data:/tmp/data
+      - ./spark:/tmp/spark
