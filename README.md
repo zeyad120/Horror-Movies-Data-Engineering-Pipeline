@@ -2,7 +2,7 @@
 📌 Project Overview
 
 This project is a complete Data Engineering pipeline built to process and analyze a horror movies dataset.
-It demonstrates how to build an end-to-end workflow using Airflow, Docker, and data processing techniques to extract, transform, and validate data.
+It demonstrates an end-to-end workflow using Apache Airflow, Docker, and data processing techniques to extract, transform, and validate data.
 
 The pipeline automates data ingestion, cleaning, transformation, and orchestration of tasks to produce a final clean dataset ready for analysis.
 
@@ -14,50 +14,87 @@ SQL / Data Warehousing concepts
 Git & GitHub
 🏗️ Project Architecture
 
-The pipeline follows an ETL structure:
+The pipeline follows a standard ETL workflow:
 
-Extract
-Load raw dataset (movies data)
-Transform
-Clean missing values
-Normalize columns
-Handle duplicates
-Feature formatting (dates, genres, etc.)
-Load
-Store processed data in final output table / file
-Orchestration
-Airflow DAG manages all tasks in sequence
+Extract → Transform → Load → Orchestration (Airflow)
+
+Extract: Load raw movies dataset
+Transform: Clean missing values, normalize columns, handle duplicates, format features
+Load: Store processed data into final output dataset
+Orchestration: Airflow DAG manages and schedules all tasks
+🧱 Data Warehouse Schema
+
+The project transforms the raw movies dataset into a simple data warehouse structure:
+
+1. fact_movies
+
+Main table containing movie details:
+
+id (Primary Key)
+title
+original_language
+release_date
+vote_count
+vote_average
+adult
+status
+2. dim_genres
+
+Dimension table containing unique genres:
+
+genre_id (Primary Key)
+genre_name
+3. movie_genres_bridge
+
+Bridge table to handle many-to-many relationship between movies and genres:
+
+movie_id (Foreign Key)
+genre_id (Foreign Key)
 🔄 Airflow DAG Workflow
 
-The DAG includes multiple tasks such as:
+The pipeline includes multiple tasks:
 
 Data extraction task
 Data cleaning task
 Data transformation task
-Validation task
+Data validation task
 Final load task
 
-All tasks are executed in sequence using Airflow scheduling.
+All tasks are executed in sequence using Airflow DAG orchestration.
 
 🚀 How to Run the Project
 1. Start Docker
 docker-compose up -d
 2. Start Airflow UI
 
-Open in browser:
+Open browser:
 
 http://localhost:8080
 3. Trigger DAG
-Go to Airflow dashboard
+Open Airflow dashboard
 Enable DAG: multi_task_pipeline
 Trigger manually or wait for schedule
 📊 Final Output Validation
 
-After execution:
+To ensure data quality and correctness, the following checks were performed:
 
-Clean dataset is generated successfully
-Data is validated for consistency and completeness
-Logs confirm successful pipeline execution
+1. Check total and unique records
+SELECT 
+    COUNT(*) AS total_records,
+    COUNT(DISTINCT id) AS unique_records
+FROM fact_movies;
+2. Check missing values
+SELECT *
+FROM fact_movies
+WHERE title IS NULL OR vote_average IS NULL;
+3. Validate rating range
+SELECT *
+FROM fact_movies
+WHERE vote_average < 0 OR vote_average > 10;
+✅ Result
+
+The dataset is clean, consistent, and ready for analysis.
+
 📁 Project Structure
 data-engineering-project/
 │
@@ -72,13 +109,13 @@ data-engineering-project/
 📌 Key Features
 Fully automated ETL pipeline
 Modular Airflow DAG design
-Dockerized environment for easy deployment
-Scalable structure for big data projects
-Clean and validated output datase
-
+Dockerized environment
+Data validation layer
+Clean and structured data output
 👨‍💻 Author
+
 Zeyad Elmogy
 
 📎 Notes
 
-This project was developed as part of a Data Engineering coursework project focusing on pipeline design, orchestration, and real-world data processing workflows.
+This project was developed as part of a Data Engineering coursework assignment focusing on pipeline design, orchestration, and real-world data processing workflows.
