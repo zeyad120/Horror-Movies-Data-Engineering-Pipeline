@@ -1,66 +1,84 @@
-📊 Data Engineering Project
-📌 Overview
+📊 Horror Movies Data Engineering Pipeline
+📌 Project Overview
 
-This project is a complete Data Engineering pipeline that processes raw data, performs cleaning and transformation, and loads it into a structured Data Warehouse for analysis and reporting.
+This project is a complete Data Engineering pipeline built to process and analyze a horror movies dataset.
+It demonstrates how to build an end-to-end workflow using Airflow, Docker, and data processing techniques to extract, transform, and validate data.
 
-🎯 Objective
+The pipeline automates data ingestion, cleaning, transformation, and orchestration of tasks to produce a final clean dataset ready for analysis.
 
-The goal of this project is to:
-
-Clean and preprocess raw datasets
-Build an automated ETL pipeline
-Store processed data in a structured format
-Enable efficient querying and analysis
-🏗️ Architecture
-
-The pipeline follows this flow:
-
-Data Source → ETL Process → Data Warehouse → Final Output
-⚙️ Technologies Used
-Python
-Apache Airflow (for orchestration)
-SQL / Data Warehouse
-Hadoop / Big Data tools (if used)
+⚙️ Tech Stack
+Apache Airflow
+Docker
+Python (Pandas)
+SQL / Data Warehousing concepts
 Git & GitHub
-🔄 ETL Process
-1. Extract
+🏗️ Project Architecture
 
-Raw data is collected from the source files.
+The pipeline follows an ETL structure:
 
-2. Transform
+Extract
+Load raw dataset (movies data)
+Transform
+Clean missing values
+Normalize columns
+Handle duplicates
+Feature formatting (dates, genres, etc.)
+Load
+Store processed data in final output table / file
+Orchestration
+Airflow DAG manages all tasks in sequence
+🔄 Airflow DAG Workflow
 
-Data cleaning and preprocessing:
+The DAG includes multiple tasks such as:
 
-Removing null values
-Handling duplicates
-Data formatting and normalization
-3. Load
+Data extraction task
+Data cleaning task
+Data transformation task
+Validation task
+Final load task
 
-Cleaned data is loaded into the Data Warehouse.
+All tasks are executed in sequence using Airflow scheduling.
 
-🗄️ Database Schema
-
-The project includes:
-
-Fact Tables
-Dimension Tables
-Relationships between entities
 🚀 How to Run the Project
-Clone the repository:
-git clone <repo-link>
-Install dependencies:
-pip install -r requirements.txt
-Run Airflow DAG:
-airflow dags trigger <dag_name>
-📊 Output
+1. Start Docker
+docker-compose up -d
+2. Start Airflow UI
 
-The final output includes:
+Open in browser:
 
-Clean structured dataset
-Analytical tables ready for queries
-Validated data results
+http://localhost:8080
+3. Trigger DAG
+Go to Airflow dashboard
+Enable DAG: multi_task_pipeline
+Trigger manually or wait for schedule
+📊 Final Output Validation
+
+After execution:
+
+Clean dataset is generated successfully
+Data is validated for consistency and completeness
+Logs confirm successful pipeline execution
+📁 Project Structure
+data-engineering-project/
+│
+├── dags/
+│   └── multi_task_pipeline.py
+├── data/
+│   └── raw_dataset.csv
+├── scripts/
+│   └── transformations.py
+├── docker-compose.yml
+└── README.md
+📌 Key Features
+Fully automated ETL pipeline
+Modular Airflow DAG design
+Dockerized environment for easy deployment
+Scalable structure for big data projects
+Clean and validated output datase
+
 👨‍💻 Author
 Zeyad Elmogy
-📌 Notes
 
-This project demonstrates a full Data Engineering workflow from raw data ingestion to final analytics-ready output.
+📎 Notes
+
+This project was developed as part of a Data Engineering coursework project focusing on pipeline design, orchestration, and real-world data processing workflows.
