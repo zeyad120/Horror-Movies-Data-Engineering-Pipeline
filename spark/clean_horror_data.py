@@ -28,4 +28,12 @@ df_cleaned.write \
     .mode("overwrite") \
     .save()
 
-print("--- Done! Data pushed to Postgres (DWH) ---")
+df.write \
+  .format("jdbc") \
+  .option("url", "jdbc:mysql://localhost:3306/movies_project") \
+  .option("dbtable", "movies") \
+  .option("user", "root") \
+  .option("password", "1882005zd") \
+  .save()
+
+print("--- Done! Data pushed to Postgres (DWH) and MySQL ---")
