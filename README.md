@@ -15,7 +15,52 @@ The pipeline automates data ingestion, cleaning, transformation, and orchestrati
 - Docker  
 - Python (Pandas)  
 - SQL / Data Warehousing concepts  
-- Git & GitHub  
+- Git & GitHub
+
+---
+
+## ⚡ Big Data Processing Layer (Spark + HDFS + YARN)
+
+To simulate a real-world Big Data environment, the pipeline is designed to conceptually integrate the following technologies:
+
+### 🔥 Apache Spark
+Apache Spark is used for distributed data processing and transformation of the raw movies dataset.  
+It handles large-scale data cleaning, aggregation, and feature engineering in a parallel computing environment.
+
+Example operations:
+- Data filtering and cleaning at scale
+- Genre parsing and normalization
+- Aggregations on ratings and votes
+
+---
+
+### 📦 HDFS (Hadoop Distributed File System)
+HDFS is considered as the storage layer for raw and processed data in a distributed environment.
+
+- Raw dataset is stored in HDFS
+- Cleaned dataset is written back to HDFS
+- Enables fault-tolerant and scalable storage
+
+---
+
+### ⚙️ YARN (Yet Another Resource Negotiator)
+YARN is used as the cluster resource manager to:
+
+- Allocate resources for Spark jobs
+- Manage job scheduling and execution
+- Ensure efficient distributed processing
+
+---
+
+### 🧠 Integration with Airflow
+Airflow acts as the orchestration layer that triggers Spark jobs and manages the full pipeline workflow:
+
+Airflow → Spark Jobs → HDFS Storage → Final Output
+
+---
+
+### 📌 Note
+In this project, Spark, HDFS, and YARN are integrated at a conceptual / architectural level to demonstrate a real-world Big Data pipeline design.
 
 ---
 
