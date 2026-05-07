@@ -151,23 +151,20 @@ To ensure data quality and correctness, the following checks were performed:
 
 ### ✔ Total & Unique Records
 ```sql
-SELECT 
-    COUNT(*) AS total_records,
-    COUNT(DISTINCT id) AS unique_records
-FROM fact_movies;
+SELECT COUNT(*) FROM fact_movie;
 ```
 
 ### ✔ Missing Values Check
 ```sql
 SELECT *
-FROM fact_movies
-WHERE title IS NULL OR vote_average IS NULL;
+FROM fact_movie
+WHERE vote_average IS NULL OR vote_count IS NULL;
 ```
 
 ### ✔ Rating Validation
 ```sql
 SELECT *
-FROM fact_movies
+FROM fact_movie
 WHERE vote_average < 0 OR vote_average > 10;
 ```
 
