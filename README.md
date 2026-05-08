@@ -171,7 +171,7 @@ WHERE vote_average < 0
    OR vote_average > 10;
 ```
 ### ✔ Missing Values Check
-```
+```sql
 SELECT *
 FROM movies
 WHERE title IS NULL
