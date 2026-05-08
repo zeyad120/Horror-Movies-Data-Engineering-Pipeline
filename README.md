@@ -151,21 +151,36 @@ To ensure data quality and correctness, the following checks were performed:
 
 ### ✔ Total & Unique Records
 ```sql
-SELECT COUNT(*) FROM fact_movie;
+SELECT COUNT(*) AS total_records
+FROM movies;
 ```
 
-### ✔ Missing Values Check
+### ✔ Check for Duplicate IDs
 ```sql
-SELECT *
-FROM fact_movie
-WHERE vote_average IS NULL OR vote_count IS NULL;
+SELECT id, COUNT(*) AS duplicate_count
+FROM movies
+GROUP BY id
+HAVING COUNT(*) > 1;
 ```
 
 ### ✔ Rating Validation
 ```sql
 SELECT *
-FROM fact_movie
-WHERE vote_average < 0 OR vote_average > 10;
+FROM movies
+WHERE vote_average < 0
+   OR vote_average > 10;
+```
+### ✔ Missing Values Check
+```
+SELECT *
+FROM movies
+WHERE title IS NULL
+   OR original_language IS NULL
+   OR release_date IS NULL
+   OR vote_count IS NULL
+   OR vote_average IS NULL
+   OR adult IS NULL
+   OR genre_names IS NULL;
 ```
 
 ---
