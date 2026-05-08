@@ -210,4 +210,8 @@ Zeyad Elmogy
 ## 📎 Notes
 
 This project was developed as part of a Data Engineering coursework assignment focusing on pipeline design, orchestration, and real-world data processing workflows.
-<img width="1024" height="1536" alt="ChatGPT Image 7 مايو 2026، 08_08_02 م" src="https://github.com/user-attachments/assets/a31b47c7-259e-4512-acc3-02ad588774ca" />
+
+<img width="1916" height="984" alt="Screenshot 2026-05-07 194817" src="https://github.com/user-attachments/assets/c3928ee5-4958-4c59-b1b9-a049ade32b84" />
+<img width="1919" height="756" alt="Screenshot 2026-05-07 194807" src="https://github.com/user-attachments/assets/0fe93afa-ae14-4891-b4dd-27d9173c77ad" />
+<img width="1919" height="1032" alt="Screenshot 2026-05-07 194747" src="https://github.com/user-attachments/assets/e15d2cc9-70d6-4b44-ac4b-e2014336e071" />
+
